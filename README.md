@@ -1,4 +1,4 @@
-# ArticleGrabber
+# ArticleToMarkdown
 
 Retrieves the body of online articles posted on supported platforms; returns content as a Markdown string. Preserves links, lists, etc.
 
