@@ -32,8 +32,8 @@ def cnn(soup):
     result = "# CNN: " + soup.find("h1", {"class": "pg-headline"}).get_text() + "\n"
 
     # Body
-    # `l-container` is the div which contains the article text
-    body = soup.find("div", {"class": "l-container"}).find_all("div", {"class": "zn-body__paragraph"})
+    # `l-container` is the div which contains the article text; `el__leafmedia` usually contains the opening paragraph
+    body = soup.find("div", {"class": "l-container"}).find_all("div", {"class": ["zn-body__paragraph", "el__leafmedia el__leafmedia--sourced-paragraph"]})
     for div in body:
         div = str(div)
         div = div.replace(' href="/', ' href="https://reuters.com/') # Make relative links absolute
