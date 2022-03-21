@@ -25,6 +25,25 @@ def reuters(soup):
     result = "\n".join(result.split("\n")[0:-1]) # Remove trailing '>'
     return result
 
+# cnn.com
+def cnn(soup):
+    # Title
+    # `pg-headline` contains the article title
+    result = "# CNN: " + soup.find("h1", {"class": "pg-headline"}).get_text() + "\n"
+
+    # Body
+    # `l-container` is the div which contains the article text
+    body = soup.find("div", {"class": "l-container"}).find_all("div", {"class": "zn-body__paragraph"})
+    for div in body:
+        div = str(div)
+        div = div.replace(' href="/', ' href="https://reuters.com/') # Make relative links absolute
+        div = md(div) # Strip usless HTML tags; format links
+        div = "\n> " + div.strip() + "\n>" # Format as blockquote
+        result += div
+
+    result = "\n".join(result.split("\n")[0:-1]) # Remove trailing '>'
+    return result
+
 def main(url):
     # Chrome 99 on Windows 10
     user_agent = "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.7113.93 Safari/537.36"
@@ -41,6 +60,8 @@ def main(url):
 
     if(domain == "reuters"):
         result = reuters(soup) + footer
+    elif(domain == "cnn"):
+        result = cnn(soup) + footer
     else:
         result = f"[!] Error: {domain} is not yet supported."
 
