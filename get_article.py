@@ -36,7 +36,7 @@ def cnn(soup):
     body = soup.find("div", {"class": "l-container"}).find_all("div", {"class": ["zn-body__paragraph", "el__leafmedia el__leafmedia--sourced-paragraph"]})
     for div in body:
         div = str(div)
-        div = div.replace(' href="/', ' href="https://reuters.com/') # Make relative links absolute
+        div = div.replace(' href="/', ' href="https://cnn.com/') # Make relative links absolute
         div = md(div) # Strip usless HTML tags; format links
         div = "\n> " + div.strip() + "\n>" # Format as blockquote
         result += div
